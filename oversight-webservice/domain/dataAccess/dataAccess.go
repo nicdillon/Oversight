@@ -3,12 +3,12 @@ package dataAccess
 import (
 	"database/sql"
 	"fmt"
-	user "oversight/domain/dtos"
+	"github.com/nicdillon/oversight/oversight-webservice/domain/dtos"
 
 	_ "github.com/denisenkom/go-mssqldb"
 )
 
-func GetAllUsers() ([]user.User, error) {
+func GetAllUsers() ([]dtos.User, error) {
     // Set up the connection string
     connectionString := ""
 
@@ -27,21 +27,21 @@ func GetAllUsers() ([]user.User, error) {
     defer rows.Close()
 
     // Create a slice of User to hold the results
-    var users []user.User
+    var users []dtos.User
 
     // Iterate over the rows and add each one to the slice
     for rows.Next() {
-        var user user.User
-        if err := rows.Scan(&user.Id, &user.Username, &user.Email); err != nil {
+        var dtos dtos.User
+        if err := rows.Scan(&dtos.Id, &dtos.Username, &dtos.Email); err != nil {
             return nil, fmt.Errorf("failed to scan row: %v", err)
         }
-        users = append(users, user)
+        users = append(users, dtos)
     }
 
     return users, nil
 }
 
-func GetUser(username string) (user.User, error) {
+func GetUser(username string) (dtos.User, error) {
     // Set up the connection string
     connectionString := ""
 
@@ -55,20 +55,20 @@ func GetUser(username string) (user.User, error) {
     // Retrieve top result from the users table
     result, err := db.Query("SELECT TOP(1) id, username, email FROM users WHERE username = @username", sql.Named("username", username))
     if err != nil {
-        return user.User{}, fmt.Errorf("failed to execute query: %v", err)
+        return dtos.User{}, fmt.Errorf("failed to execute query: %v", err)
     }
     defer result.Close()
 
-    var u user.User
+    var u dtos.User
 
     // Call Next to advance the cursor to the first row
     if result.Next() {
         // Assign the result to the User struct
         if err := result.Scan(&u.Id, &u.Username, &u.Email); err != nil {
-            return user.User{}, fmt.Errorf("failed to scan row: %v", err)
+            return dtos.User{}, fmt.Errorf("failed to scan row: %v", err)
         }
     } else {
-        return user.User{}, fmt.Errorf("no rows found")
+        return dtos.User{}, fmt.Errorf("no rows found")
     }
 
     return u, nil

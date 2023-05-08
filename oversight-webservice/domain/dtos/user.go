@@ -1,4 +1,4 @@
-package user
+package dtos
 
 type User struct {
 	Id       int

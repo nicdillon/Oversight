@@ -4,8 +4,8 @@ import (
 	"log"
 	"net/http"
 	"os"
-	dataAccess "oversight/domain/dataAccess"
-	user "oversight/domain/dtos"
+	"github.com/nicdillon/oversight/oversight-webservice/domain/dataAccess"
+	"github.com/nicdillon/oversight/oversight-webservice/domain/dtos"
 
 	"github.com/gin-gonic/gin"
 )
@@ -19,16 +19,16 @@ func main () {
 
 	r := gin.Default()
 
-	r.GET("/api/user", func(c *gin.Context) {
+	r.GET("/api/dtos", func(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{
 			"users": retrieveUsers(),
 		})
 	})
 
-	r.GET("/api/user/:username", func(c *gin.Context) {
+	r.GET("/api/dtos/:username", func(c *gin.Context) {
 		username := c.Param("username")
 		c.JSON(http.StatusOK, gin.H{
-			"user": retrieveUser(username),
+			"dtos": retrieveUser(username),
 		})
 	})
 
@@ -39,7 +39,7 @@ func main () {
 	}
 }
 
-func retrieveUsers() ([]user.User) {
+func retrieveUsers() ([]dtos.User) {
 	users, err := dataAccess.GetAllUsers()
 
 	if err != nil {
@@ -49,7 +49,7 @@ func retrieveUsers() ([]user.User) {
 	return users
 }
 
-func retrieveUser(username string) (user.User) {
+func retrieveUser(username string) (dtos.User) {
 	user, err := dataAccess.GetUser(username)
 
 	if err != nil {
