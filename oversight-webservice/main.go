@@ -1,34 +1,41 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"net/http"
 	"os"
+	"time"
+
 	"github.com/nicdillon/oversight/oversight-webservice/domain/dataAccess"
-	"github.com/nicdillon/oversight/oversight-webservice/domain/dtos"
+	"github.com/nicdillon/oversight/oversight-webservice/domain/db"
+	"github.com/nicdillon/oversight/oversight-webservice/domain/users"
 
 	"github.com/gin-gonic/gin"
 )
 
 func main () {
-
-	// Set up the logger
-	logger := log.New(os.Stdout, "oversight-api ", log.LstdFlags|log.Lshortfile)
-
+	logger := setupLogger()
 	logger.Println("Starting application...")
+
+	defer func() {
+        if err := recover(); err != nil {
+            logger.Println("Recovered from panic:", err)
+        }
+    }()
 
 	r := gin.Default()
 
-	r.GET("/api/dtos", func(c *gin.Context) {
+	r.GET("/api/user", func(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{
 			"users": retrieveUsers(),
 		})
 	})
 
-	r.GET("/api/dtos/:username", func(c *gin.Context) {
+	r.GET("/api/user/:username", func(c *gin.Context) {
 		username := c.Param("username")
 		c.JSON(http.StatusOK, gin.H{
-			"dtos": retrieveUser(username),
+			"user": retrieveUser(username),
 		})
 	})
 
@@ -39,8 +46,28 @@ func main () {
 	}
 }
 
-func retrieveUsers() ([]dtos.User) {
-	users, err := dataAccess.GetAllUsers()
+func setupLogger() *log.Logger {
+	year, month, day := time.Now().Date()
+    timestamp := fmt.Sprintf("%d-%d-%d", year, month, day)
+    pathToFile := "logs/logfile-" + timestamp + ".txt"
+	file, err := os.OpenFile(pathToFile, os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0644)
+    if err != nil {
+        log.Fatal(err)
+    }
+	logger := log.New(file, "oversight-webservice ", log.Ldate|log.Ltime)
+
+	return logger
+}
+
+func retrieveUsers() ([]users.User) {
+	db, err := db.CreateDbConnection()
+
+	if err != nil {
+		panic(err)
+	}
+	da := dataAccess.NewDataAccess(db)
+
+	users, err := da.GetAllUsers()
 
 	if err != nil {
 		panic(err)
@@ -49,8 +76,16 @@ func retrieveUsers() ([]dtos.User) {
 	return users
 }
 
-func retrieveUser(username string) (dtos.User) {
-	user, err := dataAccess.GetUser(username)
+func retrieveUser(username string) (users.User) {
+	fmt.Println("Retrieving user " + username + "...")
+	db, err := db.CreateDbConnection()
+
+	if err != nil {
+		panic(err)
+	}
+	da := dataAccess.NewDataAccess(db)
+
+	user, err := da.GetUser(username)
 
 	if err != nil {
 		panic(err)
