@@ -1,5 +1,7 @@
-using static System.Net.WebRequestMethods;
 using oversight_steam_webservice.Models;
+using System.Net.Http;
+using System.Text;
+using System.Text.Json;
 
 namespace oversight_steam_webservice.Services
 {
@@ -7,7 +9,7 @@ namespace oversight_steam_webservice.Services
     {
         private readonly HttpClient _httpClient;
         private const string STEAM_API_URL = "https://api.steampowered.com/IStoreService/GetAppList/v1/?include_games=true&include_dlc=false&include_software=false&include_videos=false&include_hardware=false";
-        private const string STEAM_API_KEY = "XXXXX";
+        private const string STEAM_API_KEY = "F3370BA16DEC558CFB86E4AD6DF6D2C2";
 
         public SteamAPIService(HttpClient httpClient)
         {
@@ -21,10 +23,15 @@ namespace oversight_steam_webservice.Services
 
             try 
             {
-                List<SteamGame> result = (await response.Content.ReadFromJsonAsync<SteamAPIGetAppsReponse>(value => new SteamAPIGetAppsReponse() 
-                { 
-                    Response
-                }) ?? new SteamAPIGetAppsReponse()).Response.Games;
+                Stream receiveStream = await response.Content.ReadAsStreamAsync();
+                StreamReader receiveStreamReader = new(receiveStream, Encoding.UTF8);
+                string text = receiveStreamReader.ReadToEnd();
+                SteamAPIGetAppsResponse? apiResponse = JsonSerializer.Deserialize<SteamAPIGetAppsResponse>(text);
+
+                if (apiResponse == null)
+                    return [];
+
+                List<SteamGame> result = apiResponse!.Response.Apps;
                 return result;
             }
             catch (Exception exception)
