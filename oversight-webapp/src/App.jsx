@@ -3,7 +3,8 @@ import Layout from './pages/Layout.jsx';
 import About from './pages/About.jsx';
 import NoPage from './pages/NoPage.jsx';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { createTheme, ThemeProvider, styled } from '@mui/material/styles';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import Profile from './pages/Profile.jsx';
 import './App.css';
 
 function App() {
@@ -23,7 +24,7 @@ function App() {
             <Route path="/" element={<Layout />}>
               <Route index element={<Home />} />
               <Route path="about" element={<About />} />
-              {/* <Route path="profile" element={<Profile />} /> */}
+              <Route path="profile" element={<Profile />} />
               <Route path="*" element={<NoPage />} />
             </Route>
           </Routes>

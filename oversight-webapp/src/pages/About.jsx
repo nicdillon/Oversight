@@ -1,3 +1,5 @@
+import './About.css';
+
 export default function About() {
 
 
@@ -12,7 +14,7 @@ export default function About() {
             <br/> <br/>
             <h2>Get Started</h2>
             <p>Sign in to one of the platforms below to begin building your Oversight profile.</p>
-            <ul>
+            <ul className='platform-list'>
                 <li>
                     Steam
                 </li>

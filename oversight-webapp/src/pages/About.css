@@ -1,0 +1,10 @@
+.platform-list {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    text-decoration: underline;
+    color: #0B4F6C;
+    filter: brightness(150%);
+    font-weight: 500;
+}

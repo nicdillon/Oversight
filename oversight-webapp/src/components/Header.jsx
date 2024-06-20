@@ -12,16 +12,16 @@ export default function Header() {
     return (
         <nav className="header">
             <ul>
-                <li>
+                <li onClick={() => setActiveLink("home-link")}>
                     <HomeRoundedIcon color={activeLink == "home-link" ? "secondary" : "white"} />
-                    <NavLink id="home-link" className={({ isActive }) => {(isActive ? 'active' : 'inactive')}} to="/">Home</NavLink>
+                    <NavLink id="home-link" className={({ isActive }) => (isActive ? 'active' : 'inactive')} to="/">Home</NavLink>
                 </li>
-                <li>
-                    <PsychologyAltRoundedIcon />
+                <li onClick={() => setActiveLink("about-link")}>
+                    <PsychologyAltRoundedIcon color={activeLink == "about-link" ? "secondary" : "white"} />
                     <NavLink id="about-link" className={({ isActive }) => (isActive ? 'active' : 'inactive')} to="/About">About</NavLink>
                 </li>
-                <li>
-                    <PersonRoundedIcon />
+                <li onClick={() => setActiveLink("profile-link")}>
+                    <PersonRoundedIcon color={activeLink == "profile-link" ? "secondary" : "white"} />
                     <NavLink id="profile-link" className={({ isActive }) => (isActive ? 'active' : 'inactive')} to="/Profile">Profile</NavLink>
                 </li>
             </ul>
