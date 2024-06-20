@@ -1,4 +1,9 @@
+using oversight_steam_webservice.Services;
+
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddHttpClient();
+builder.Services.AddLogging();
+builder.Services.AddScoped<SteamAPIService>();
 
 // Add services to the container.
 

@@ -23,3 +23,6 @@ dist-ssr
 *.sln
 *.sw?
 domain/local.appsettings.json
+/.vs
+/oversight-steam-webservice/bin/Debug/net8.0
+/oversight-steam-webservice/oversight-steam-webservice.csproj.user

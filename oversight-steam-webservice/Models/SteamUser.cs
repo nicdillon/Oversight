@@ -1,4 +1,4 @@
-namespace oversight_steam_webservice
+namespace oversight_steam_webservice.Models
 {
     public class SteamUser
     {
