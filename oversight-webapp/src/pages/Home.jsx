@@ -15,22 +15,26 @@ function Home() {
     else
         steamApiKey = import.meta.env.REACT_APP_STEAM_API_KEY;
 
+    let localhostApiUrl = "http://localhost:5243/SteamAPI"
+
     async function handleGetSteamApps() {
 
         setGamesAreLoading(true);
 
-        await fetch(`https://api.steampowered.com/IStoreService/GetAppList/v1/?include_games=true&include_dlc=false&include_software=false&include_videos=false&include_hardware=false&key=${steamApiKey}&max_results=5`)
+        await fetch(localhostApiUrl)
             .then(res => res.json())
-            .then(data => {
-                const games = data.response.apps.map(appJson => ({
-                    id: appJson.appid,
-                    name: appJson.name
-                }));
-                setGames(games);
-                setGamesAreLoading(false);
-            })
+            .then(result => console.log(result))
+            // .then(data => {
+            //     const games = data.response.apps.map(appJson => ({
+            //         id: appJson.appid,
+            //         name: appJson.name
+            //     }));
+            //     setGames(games);
+            //     setGamesAreLoading(false);
+            // })
             .catch(error => {
                 setFetchError(error);
+                console.log(error);
             })
     }
 

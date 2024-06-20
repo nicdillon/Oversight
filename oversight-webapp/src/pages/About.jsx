@@ -20,7 +20,13 @@ export default function About() {
                     Epic Games Store
                 </li>
                 <li>
-                    
+                    Xbox
+                </li>
+                <li>
+                    Playstation
+                </li>
+                <li>
+                    Uplay
                 </li>
             </ul>
         </div>
