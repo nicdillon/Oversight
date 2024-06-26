@@ -8,7 +8,7 @@ function Home() {
     const [games, setGames] = useState([]);
     const [gamesAreLoading, setGamesAreLoading] = useState(false);
 
-    let localhostApiUrl = "https://localhost:32768/SteamAPI"
+    let localhostApiUrl = "https://oversight-steam-webservice.azurewebsites.net/SteamAPI"
 
     async function handleGetSteamApps() {
 
