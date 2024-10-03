@@ -1,8 +1,15 @@
+.app {
+  color: var(--text-primary);
+  background-color: var(--background);
+  width: 100%;
+  min-height: 100vh;
+}
+
 #root {
-  max-width: 1280px;
   margin: 0 auto;
-  padding: 2rem;
   text-align: center;
+  height: 100%;
+  width: 100%;
 }
 
 .logo {

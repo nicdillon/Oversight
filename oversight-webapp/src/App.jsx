@@ -5,19 +5,23 @@ import NoPage from './pages/NoPage.jsx';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Profile from './pages/Profile.jsx';
+import useLocalStorage from 'use-local-storage';
 import './App.css';
 
 function App() {
 
-  const theme = createTheme({
+  const defaultDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const [darkMode] = useLocalStorage('darkMode', defaultDark ? 'dark' : 'light');
+
+  const theme = createTheme({ 
     palette: {
-      primary: { main: '#0B4F6C' },
-      secondary: { main: '#FCCA46' },
+      primary: { main: '#bf0603' },
+      secondary: { main: '#fcca46' },
     },
   });
 
   return (
-    <div className="container">
+    <div className="app" data-theme={darkMode}>
       <ThemeProvider theme={theme}>
         <BrowserRouter>
           <Routes>

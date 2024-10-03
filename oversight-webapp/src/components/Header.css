@@ -1,29 +1,38 @@
-.header {
+.header-container {
     display: flex;
+    justify-content: space-between;
+    align-items: center;
     position: absolute;
     top: 0;
     left: 0;
-    background-color: black;
+    min-width: 100%;
+    border-bottom: solid 1px lightgray;
+}
+
+.header {
+    display: flex;
+    /* background-color: black; */
     border-radius: 0 0 60px 0;
 }
 
 a {
     position: relative;
     background-color: transparent;
-    color: white;
+    color: var(--primary-text);
     width: 100%;
 }
 
 li:hover {
-    color: #FCCA46;
+    color: var(--accent);
 }
 
 .active { 
-    color: #FCCA46;
+    color: var(--accent);
+    text-decoration: underline;
 }
 
 .inactive { 
-    color: white;
+    color: var(--secondary-text);
 }
 
 li {
@@ -36,8 +45,3 @@ li {
     transition: filter 300ms;
     margin-right: 2em;
 }
-
-/* li:hover {
-    filter: drop-shadow(0 0 2em #646cffaa);
-   
-} */

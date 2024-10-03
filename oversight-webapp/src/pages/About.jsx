@@ -4,7 +4,7 @@ export default function About() {
 
 
     return (
-        <div>
+        <div className='about-container'>
             <h1>About</h1>
             <br /><br />
             <p>Oversight is the centralized observation platform for gamers. Gone are the days of treating all game libraries and stores as seperate.

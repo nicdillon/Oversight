@@ -3,25 +3,26 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    border: 1px solid #FBFBFF;
-    max-height: 200px;
+    border: 1px solid var(--accent);
+    max-height: 400px;
+    width: auto;
     position: relative;
 }
 
 img {
-    max-height: 200px;
+    height: auto;
     width: auto;
-    background-color: #FBFBFF;
+    background-color: var(--accent);
 }
 
 label {
-    position: absolute;
-    bottom: 0;
     margin-right: auto;
     z-index: 1;
-    background-color: #0B4F6C;
-    color: #CCB14E;
+    background-color: var(--accent);
+    color: var(--primary-text);
     width: 100%;
     font-size: 14px;
+    white-space: nowrap;
+    overflow: hidden;
     text-overflow: ellipsis;
 }

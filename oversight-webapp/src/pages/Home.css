@@ -1,3 +1,11 @@
+.home-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
 .logo {
     height: 12em;
     padding: 1.5em;
@@ -43,13 +51,16 @@
     color: #888;
 }
 
-.card-container {
+/* .card-container {
     flex: 1;
-}
+} */
 
 .content {
     display: flex;
     flex-direction: column;
     justify-self: center;
     align-items: center;
+    /* background-color: #145c9e;
+    max-width: 80vw;
+    border-radius: 1rem; */
 }
