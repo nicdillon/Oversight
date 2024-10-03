@@ -14,6 +14,6 @@ function Card(props) {
             <label>{props.name}</label>
         </div>
     );
-};
+}
 
 export default Card;

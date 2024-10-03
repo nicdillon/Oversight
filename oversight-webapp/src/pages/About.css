@@ -18,6 +18,19 @@ p {
     align-items: center;
     text-decoration: underline;
     color: #0B4F6C;
-    filter: brightness(150%);
     font-weight: 500;
+}
+
+.platform-list > li {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.platform-logo {
+    height: 48px;
+    width: auto;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
 }

@@ -5,3 +5,7 @@
     align-items: center;
     min-height: 100vh;
 }
+
+.profile-photo {
+    border-radius: 1rem;
+}

@@ -45,3 +45,15 @@ li {
     transition: filter 300ms;
     margin-right: 2em;
 }
+
+.header-profile-photo {
+    width: 24px;
+    height: auto;
+    margin-right: 0.5rem;
+    border-radius: 0.25rem;
+    filter: none;
+    -webkit-filter: grayscale(100%);
+    -moz-filter:    grayscale(100%);
+    -ms-filter:     grayscale(100%);
+    -o-filter:      grayscale(100%);
+}
