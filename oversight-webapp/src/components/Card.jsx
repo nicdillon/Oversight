@@ -11,7 +11,7 @@ function Card(props) {
     return(
         <div className="card-container">
             <img src={imageUrl} alt={props.name + "Image"} />
-            <label>{props.name}</label>
+            {/* <label>{props.name}</label> */}
         </div>
     );
 }

@@ -1,12 +1,13 @@
 .card-container {
-    margin: 10px 0 10px 0;
+    margin: 0.5rem 1rem;
     display: flex;
     flex-direction: column;
     align-items: center;
-    border: 1px solid var(--accent);
+    border: 1px solid var(--text-primary);
     max-height: 400px;
-    width: auto;
+    max-width: 184px;
     position: relative;
+    box-shadow: 0 2px 8px 0 var(--text-primary);
 }
 
 img {
@@ -18,8 +19,9 @@ img {
 label {
     margin-right: auto;
     z-index: 1;
-    background-color: var(--accent);
-    color: var(--primary-text);
+    background-color: var(--text-primary);
+    color: var(--background) !important;
+    font-weight: 600;
     width: 100%;
     font-size: 14px;
     white-space: nowrap;

@@ -1,0 +1,9 @@
+.library-container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: column;
+    min-height: 90vh;
+    margin-top: 10vh;
+    max-width: 60%;
+}

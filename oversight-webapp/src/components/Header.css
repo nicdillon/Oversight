@@ -7,6 +7,7 @@
     left: 0;
     min-width: 100%;
     border-bottom: solid 1px lightgray;
+    background-color: var(--background);
 }
 
 .header {
@@ -18,12 +19,12 @@
 a {
     position: relative;
     background-color: transparent;
-    color: var(--primary-text);
+    color: var(--text-primary);
     width: 100%;
 }
 
 li:hover {
-    color: var(--accent);
+    color: var(--accent) !important;
 }
 
 .active { 
@@ -32,7 +33,7 @@ li:hover {
 }
 
 .inactive { 
-    color: var(--secondary-text);
+    color: var(--text-primary);
 }
 
 li {
