@@ -20,7 +20,6 @@ function Home() {
     async function handleGetSteamApps() {
 
         setGamesAreLoading(true);
-        console.log(gamesAreLoading);
 
         await fetch(localhostApiUrl)
             .then(res => res.json())

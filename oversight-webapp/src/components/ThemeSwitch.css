@@ -1,0 +1,9 @@
+.theme-switch-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.MuiSwitch-thumb.css-jsexje-MuiSwitch-thumb {
+    color: var(--text-primary);
+}
