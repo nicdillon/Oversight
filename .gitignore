@@ -27,3 +27,4 @@ domain/local.appsettings.json
 /oversight-steam-webservice/bin/Debug/net8.0
 /oversight-steam-webservice/oversight-steam-webservice.csproj.user
 oversight-steam-webservice/obj/*
+.env

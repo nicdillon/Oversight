@@ -1,27 +1,30 @@
 using oversight_steam_webservice.Models;
-using System.Net.Http;
 using System.Text;
 using System.Text.Json;
+
 
 namespace oversight_steam_webservice.Services
 {
     public class SteamAPIService
     {
-        private readonly HttpClient _httpClient;
+        private readonly IConfiguration _configuration;
+        private readonly IHttpClientFactory _httpClientFactory;
         private const string STEAM_API_URL = "https://api.steampowered.com/IStoreService/GetAppList/v1/?include_games=true&include_dlc=false&include_software=false&include_videos=false&include_hardware=false";
         private const string STEAM_API_KEY = "F3370BA16DEC558CFB86E4AD6DF6D2C2";
 
-        public SteamAPIService(HttpClient httpClient)
+        public SteamAPIService(IHttpClientFactory httpClientFactory, IConfiguration configuration)
         {
-            _httpClient = httpClient ?? throw new ArgumentNullException(nameof(httpClient));
+            _httpClientFactory = httpClientFactory ?? throw new ArgumentNullException(nameof(httpClientFactory));
+            _configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
         }
 
         public async Task<IEnumerable<SteamGame>> GetGamesAsync<IEnumerable>(int itemsPerPage)
         {
+            var client = _httpClientFactory.CreateClient();
             string steamUrlWithKey = string.Concat(STEAM_API_URL, "&key=", STEAM_API_KEY, "&max_results=", itemsPerPage.ToString());
-            HttpResponseMessage response = await _httpClient.GetAsync(steamUrlWithKey);
+            HttpResponseMessage response = await client.GetAsync(steamUrlWithKey);
 
-            try 
+            try
             {
                 Stream receiveStream = await response.Content.ReadAsStreamAsync();
                 StreamReader receiveStreamReader = new(receiveStream, Encoding.UTF8);
@@ -41,24 +44,35 @@ namespace oversight_steam_webservice.Services
             }
         }
 
-        //public async Task<TResponse> PostAsync<TRequest, TResponse>(string url, TRequest request)
-        //{
-        //    HttpResponseMessage response = await _httpClient.PostAsJsonAsync(url, request);
-        //    response.EnsureSuccessStatusCode();
-        //    return await response.Content.ReadFromJsonAsync<TResponse>();
-        //}
+        public async Task<bool> VerifyOpenIdAsync(string openid)
+        {
+            string openIdValidationUrl = "https://steamcommunity.com/openid/login";
+            var client = _httpClientFactory.CreateClient();
+            var response = await client.PostAsync(openIdValidationUrl, new FormUrlEncodedContent(new Dictionary<string, string>
+        {
+            { "openid.ns", "http://specs.openid.net/auth/2.0" },
+            { "openid.mode", "check_authentication" },
+            { "openid.return_to", openid }
+        }));
 
-        //public async Task<TResponse> PutAsync<TRequest, TResponse>(string url, TRequest request)
-        //{
-        //    HttpResponseMessage response = await _httpClient.PutAsJsonAsync(url, request);
-        //    response.EnsureSuccessStatusCode();
-        //    return await response.Content.ReadFromJsonAsync<TResponse>();
-        //}
+            string content = await response.Content.ReadAsStringAsync();
+            return content.Contains("is_valid:true");
+        }
 
-        //public async Task DeleteAsync(string url)
-        //{
-        //    HttpResponseMessage response = await _httpClient.DeleteAsync(url);
-        //    response.EnsureSuccessStatusCode();
-        //}
+        public async Task<string> GetSteamIdFromOpenIdAsync(string openid)
+        {
+            const string SteamIdPrefix = "https://steamcommunity.com/openid/id/";
+            return openid.Replace(SteamIdPrefix, "");
+        }
+
+        public async Task<object> GetOwnedGamesAsync(string steamId)
+        {
+            string apiKey = _configuration["Steam:ApiKey"]!;
+            string apiUrl = $"https://api.steampowered.com/IPlayerService/GetOwnedGames/v1/?key={apiKey}&steamid={steamId}&include_appinfo=true";
+
+            var client = _httpClientFactory.CreateClient();
+            var response = await client.GetStringAsync(apiUrl);
+            return response; // Parse if necessary
+        }
     }
 }

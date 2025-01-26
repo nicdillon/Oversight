@@ -5,7 +5,8 @@ import Card from '../components/Card.jsx';
 import './Home.css';
 import useLocalStorage from 'use-local-storage';
 
-let localhostApiUrl = "https://oversight-steam-webservice.azurewebsites.net/SteamAPI";
+const API_ROOT = import.meta.env.VITE_STEAM_WEBAPP_API_ROOT;
+let steamAPIUrl = `${API_ROOT}/SteamAPI`;
 
 function Home() {
     const [fetchError, setFetchError] = useState(null);
@@ -16,26 +17,26 @@ function Home() {
     }, []);
     const [darkMode] = useLocalStorage('darkMode');
 
-
     async function handleGetSteamApps() {
+        try {
+            setGamesAreLoading(true);
+            const response = await fetch(steamAPIUrl);
+            const data = await response.json();
 
-        setGamesAreLoading(true);
+            console.log(data)
 
-        await fetch(localhostApiUrl)
-            .then(res => res.json())
-            .then(data => {
-                const games = data.map(appJson => ({
-                    id: appJson.appid,
-                    name: appJson.name
-                }));
-                setGamesAreLoading(false);
-                setGames(games);
-            })
-            .catch(error => {
-                setFetchError(error);
-                console.log(error);
-            })
-            .then(setGamesAreLoading(false))
+            const games = data.map(appJson => ({
+                id: appJson.appid,
+                name: appJson.name
+            }));
+
+            setGames(games);
+            setGamesAreLoading(false);
+        } catch (error) {
+            setFetchError(error);
+            console.error(error);
+            setGamesAreLoading(false); // Ensure loading state is updated even if there is an error
+        }
     }
 
     return (

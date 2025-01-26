@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\nicho\\source\\repos\\nicdillon\\oversight\\oversight-steam-webservice\\oversight-steam-webservice.csproj": {}
+    "C:\\Projects\\oversight\\oversight-steam-webservice\\oversight-steam-webservice.csproj": {}
   },
   "projects": {
-    "C:\\Users\\nicho\\source\\repos\\nicdillon\\oversight\\oversight-steam-webservice\\oversight-steam-webservice.csproj": {
+    "C:\\Projects\\oversight\\oversight-steam-webservice\\oversight-steam-webservice.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\nicho\\source\\repos\\nicdillon\\oversight\\oversight-steam-webservice\\oversight-steam-webservice.csproj",
+        "projectUniqueName": "C:\\Projects\\oversight\\oversight-steam-webservice\\oversight-steam-webservice.csproj",
         "projectName": "oversight-steam-webservice",
-        "projectPath": "C:\\Users\\nicho\\source\\repos\\nicdillon\\oversight\\oversight-steam-webservice\\oversight-steam-webservice.csproj",
+        "projectPath": "C:\\Projects\\oversight\\oversight-steam-webservice\\oversight-steam-webservice.csproj",
         "packagesPath": "C:\\Users\\nicho\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\nicho\\source\\repos\\nicdillon\\oversight\\oversight-steam-webservice\\obj\\",
+        "outputPath": "C:\\Projects\\oversight\\oversight-steam-webservice\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\nicho\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -22,7 +22,6 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -35,11 +34,6 @@
           "warnAsError": [
             "NU1605"
           ]
-        },
-        "restoreAuditProperties": {
-          "enableAudit": "true",
-          "auditLevel": "low",
-          "auditMode": "direct"
         }
       },
       "frameworks": {
@@ -49,6 +43,10 @@
             "Microsoft.VisualStudio.Azure.Containers.Tools.Targets": {
               "target": "Package",
               "version": "[1.20.1, )"
+            },
+            "RestSharp": {
+              "target": "Package",
+              "version": "[112.1.0, )"
             },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
@@ -74,7 +72,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.300/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
